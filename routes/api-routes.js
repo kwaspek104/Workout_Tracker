@@ -11,8 +11,8 @@ router.get("/api/workouts", ({ body }, res) => {
     });
 });
 
-router.get("/api/workouts", ({ body }, res) => {
-    Workout.findOne(body)
+router.get("/api/workouts/range", ({ body }, res) => {
+    Workout.find(body).limit(7)
       .then(dbWorkout => {
         res.json(dbWorkout);
       })
