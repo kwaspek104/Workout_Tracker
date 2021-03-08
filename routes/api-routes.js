@@ -31,15 +31,21 @@ router.post("/api/workouts", ({ body }, res) => {
       });
   });
 
-  router.put("/api/workouts/:id", (req, res) => {
+  router.put("/api/workouts/:id", ({ body, params }, res) => {
     Workout.findByIdAndUpdate(
-        { _id: req.params.id }, { $set: { exercises: req.body } })
-        .then(dbWorkout => {
-            res.json(dbWorkout);
-        }).catch(err => {
-            res.status(400).json(err);
-        });
-});
+      params.id,
+      { $push: { exercises: body } },
+      // "runValidators" will ensure new exercises meet our schema requirements
+      { new: true, runValidators: true }
+    )
+      .then(dbWorkout => {
+        res.json(dbWorkout);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  });
+
   
 
 module.exports = router;
