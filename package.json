@@ -10,6 +10,9 @@
     "seed": "node seeders/seed.js",
     "heroku-postbuild": "npm run seed"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
